@@ -3,27 +3,21 @@ package family_tree.family_tree_Angelina;
 import family_tree.human.Human;
 import java.util.List;
 
-
 public class FamilyTree {
-    private Human rootPerson;
+    private List<Human> familyMembers;
 
-    public FamilyTree(Human rootPerson) {
-        this.rootPerson = rootPerson;
+    public FamilyTree(List<Human> familyMembers) {
+        this.familyMembers = familyMembers;
     }
 
-    public void displayFamilyTree() {
-        System.out.println("Family Tree of: " + rootPerson);
-        displayChildren(rootPerson.getChildren());
-    }
-
-    private void displayChildren(List<Human> children) {
-        for (Human child : children) {
-            System.out.println(" - " + child);
-            displayChildren(child.getChildren());
+    public String displayFamilyTree() {
+        StringBuilder result = new StringBuilder();
+        for (Human person : familyMembers) {
+            result.append(person.toString()).append("\n"); // Используем метод toString
         }
+        return result.toString();
     }
 }
-
 
 
 

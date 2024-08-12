@@ -1,7 +1,6 @@
 package family_tree.human;
 
 import java.time.LocalDate;
-/*import java.time.Period;*/
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +10,11 @@ public class Human {
     private LocalDate birthDate;
     private LocalDate deathDate; // Дата смерти
     private List<Human> children;
+    private Human mother;
+    private Human father;
+    private Human spouse;
 
-    // Конструктор для живых людей
+    // Конструктор без родителей
     public Human(String name, Gender gender, LocalDate birthDate) {
         this.name = name;
         this.gender = gender;
@@ -20,17 +22,13 @@ public class Human {
         this.children = new ArrayList<>();
     }
 
-    // Конструктор для умерших людей
-    public Human(String name, Gender gender, LocalDate birthDate, LocalDate deathDate) {
-        this(name, gender, birthDate);
-        this.deathDate = deathDate;
-    }
-
     // Конструктор с родителями
-    public Human(String name, Gender gender, LocalDate birthDate, LocalDate deathDate, Human mother, Human father) {
-        this(name, gender, birthDate, deathDate);
-        if (mother != null) mother.addChild(this);
-        if (father != null) father.addChild(this);
+    public Human(String name, Gender gender, LocalDate birthDate, Human mother, Human father) {
+        this(name, gender, birthDate);
+        this.mother = mother;
+        this.father = father;
+        if (mother != null) mother.addChild(this); // Добавление ребенка к матери
+        if (father != null) father.addChild(this); // Добавление ребенка к отцу
     }
 
     public void addChild(Human child) {
@@ -57,21 +55,29 @@ public class Human {
         return deathDate;
     }
 
+    public void setDeathDate(LocalDate deathDate) {
+        this.deathDate = deathDate;
+    }
+    public void setSpouse(Human spouse){
+        this.spouse = spouse;
+    }
+    public Human getSpouse(){
+        return spouse;
+    }
+    public boolean hasChildren(){
+        return !children.isEmpty();
+    }
+
+
     @Override
     public String toString() {
-        String result = name + " (" + gender + ", " + birthDate;
-        if (deathDate != null) {
-            result += ", " + deathDate;
-        }
-        result += ")";
-        return result;
+        String spouseName = (spouse != null) ? spouse.getName() : "no";
+        String childrenInfo = hasChildren() ? String.valueOf(children.size()) : "no";
+        return String.format("%s (%s), born on %s, mother: %s, father: %s, spouse: %s, children: %s",
+                name, gender, birthDate, mother != null ? mother.getName() : "no",
+                father != null ? father.getName() : "no", spouseName, childrenInfo);
     }
 }
-
-
-
-
-
 
 
 

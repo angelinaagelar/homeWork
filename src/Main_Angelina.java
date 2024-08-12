@@ -4,8 +4,9 @@ import family_tree.family_tree_Angelina.FamilyTree;
 import family_tree.human.Human;
 import family_tree.human.Gender;
 
-
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main_Angelina {
     public static void main(String[] args) {
@@ -14,52 +15,44 @@ public class Main_Angelina {
         Human grandFatherHomer = new Human("Abraham Jay-Jebediah 'Abe' Simpson", Gender.MALE, LocalDate.of(1939, 8, 8));
 
         // Создание родителей
-        Human homer = new Human("Homer Filipp Simpson", Gender.MALE, LocalDate.of(1962, 7, 10), null, grandMotherHomer, grandFatherHomer);
-        grandMotherHomer.addChild(homer);
-        grandFatherHomer.addChild(homer);
+        Human homer = new Human("Homer Filipp Simpson", Gender.MALE, LocalDate.of(1962, 7, 10), grandMotherHomer, grandFatherHomer);
 
         // Создание бабушек и дедушек по линии Маржори
         Human grandMotherMarge = new Human("Jacqueline Gurney", Gender.FEMALE, LocalDate.of(1941, 4, 11));
         Human grandFatherMarge = new Human("Clancy Bouvier", Gender.MALE, LocalDate.of(1937, 2, 8));
 
         // Создание родителей
-        Human marge = new Human("Marjiorie Jacqueline (Marge) Simpson", Gender.FEMALE, LocalDate.of(1964, 10, 2), null, grandMotherMarge, grandFatherMarge);
-        grandMotherMarge.addChild(marge);
-        grandFatherMarge.addChild(marge);
+        Human marge = new Human("Marjiorie Jacqueline (Marge) Simpson", Gender.FEMALE, LocalDate.of(1964, 10, 2), grandMotherMarge, grandFatherMarge);
 
         // Создание детей
-        Human bart = new Human("Bartholomew Jo-Jo 'Bart' Simpson", Gender.MALE, LocalDate.of(1990, 12, 15), null, marge, homer);
-        Human lisa = new Human("Lisa Marie Simpson", Gender.FEMALE, LocalDate.of(1993, 9, 17), null, marge, homer);
-        Human maggie = new Human("Margaret Lenny 'Maggie' Simpson", Gender.FEMALE, LocalDate.of(1999, 2, 27), null, marge, homer);
+        Human bart = new Human("Bartholomew Jo-Jo 'Bart' Simpson", Gender.MALE, LocalDate.of(1990, 12, 15), marge, homer);
+        Human lisa = new Human("Lisa Marie Simpson", Gender.FEMALE, LocalDate.of(1993, 9, 17), marge, homer);
+        Human maggie = new Human("Margaret Lenny 'Maggie' Simpson", Gender.FEMALE, LocalDate.of(1999, 2, 27), marge, homer);
 
-        // Отображение семейного древа
-        System.out.println("Family Tree:");
+        // Установить супругов
+        homer.setSpouse(marge); // Установка супруги
+        marge.setSpouse(homer); // Установка мужа
 
-        // Отобразить бабушек и дедушек по отцовской линии
-        System.out.println("Paternal Grandparents:");
-        System.out.println(" - " + grandMotherHomer);
-        System.out.println(" - " + grandFatherHomer);
+        // Создание списка членов семьи
+        List<Human> familyMembers = new ArrayList<>();
+        familyMembers.add(homer);
+        familyMembers.add(marge);
+        familyMembers.add(grandMotherHomer);
+        familyMembers.add(grandFatherHomer);
+        familyMembers.add(grandMotherMarge);
+        familyMembers.add(grandFatherMarge);
+        familyMembers.add(bart);
+        familyMembers.add(lisa);
+        familyMembers.add(maggie);
 
-        // Отобразить бабушек и дедушек по материнской линии
-        System.out.println("\nMaternal Grandparents:");
-        System.out.println(" - " + grandMotherMarge);
-        System.out.println(" - " + grandFatherMarge);
+        // Создание и вывод семейного дерева
+        FamilyTree familyTree = new FamilyTree(familyMembers);
+        String familyTreeInfo = familyTree.displayFamilyTree();
 
-        // Отображение родителей
-        System.out.println("\nParents:");
-        System.out.println(" - " + homer);
-        System.out.println(" - " + marge);
-
-        // Отображение детей
-        System.out.println("\nChildren:");
-        System.out.println(" - " + bart);
-        System.out.println(" - " + lisa);
-        System.out.println(" - " + maggie);
+        // Вывод информации о семейном дереве
+        System.out.println(familyTreeInfo);
     }
 }
-
-
-
 
 
 
