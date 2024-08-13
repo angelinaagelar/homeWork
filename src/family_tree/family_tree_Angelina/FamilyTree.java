@@ -1,9 +1,12 @@
 package family_tree.family_tree_Angelina;
 
 import family_tree.human.Human;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class FamilyTree {
+public class FamilyTree implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<Human> familyMembers;
 
     public FamilyTree(List<Human> familyMembers) {
