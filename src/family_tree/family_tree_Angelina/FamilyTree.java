@@ -3,9 +3,10 @@ package family_tree.family_tree_Angelina;
 import family_tree.human.Human;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree implements Serializable {
+public class FamilyTree implements Serializable, Iterable<Human> {
     private static final long serialVersionUID = 1L;
     private List<Human> familyMembers;
 
@@ -19,6 +20,18 @@ public class FamilyTree implements Serializable {
             result.append(person.toString()).append("\n"); // Используем метод toString
         }
         return result.toString();
+    }
+
+    @Override
+    public Iterator<Human> iterator() {
+        return new FamilyTreeIterator(familyMembers);
+    }
+    public void sortByName(){
+        familyMembers.sort(new HumanComparatorByName());
+    }
+
+    public void sortByBirthDate(){
+        familyMembers.sort(new HumanComparatorByBirthDate());
     }
 }
 

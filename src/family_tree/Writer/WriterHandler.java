@@ -1,8 +1,10 @@
 package family_tree.Writer;
 
-import family_tree.family_tree_Angelina.FamilyTree;
+
+
+import java.io.Serializable;
 
 public interface WriterHandler {
-    void saveFamilyTree (FamilyTree familyTree, String filePath) throws Exception;
-    FamilyTree loadFamilyTree(String filePath) throws Exception;
+    boolean save(Serializable serializable);
+    Object read();
 }
