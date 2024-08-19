@@ -1,14 +1,15 @@
 package family_tree.human;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Human {
+public class Human implements Serializable {
     private String name;
     private Gender gender;
     private LocalDate birthDate;
-    private LocalDate deathDate; // Дата смерти
+    private LocalDate deathDate;
     private List<Human> children;
     private Human mother;
     private Human father;
